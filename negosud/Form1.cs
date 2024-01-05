@@ -1,14 +1,7 @@
 ﻿using System;
 using Npgsql;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Runtime.Remoting.Contexts;
 
 namespace negosud
 {
@@ -29,64 +22,56 @@ namespace negosud
 
         }
 
+        DbConnexion db = new DbConnexion();
         private void connexion_Click(object sender, EventArgs e)
-        {
-            ConnexionUtilisateur();
-        }
-        private void ConnexionUtilisateur()
         {
             connexion.Enabled = false;
             connexion.Text = "Connexion en cours...";
 
             if (identifiant.Text == "" && motDePasse.Text == "")
             {
-                textConnexion.Text = "Les champs sont vides";
-                ResetConnexionButton();
+                textConnexion.Text = "champs vide";
+                connexion.Enabled = true;
+                connexion.Text = "Connexion";
             }
             else
             {
-                using (NpgsqlConnection conn = new NpgsqlConnection("Server=db.dfgqsyvziksjxjztynlc.supabase.co; Port = 6543; User Id = postgres; Password = 0lMUb1jX5nXmpRuS; Database = postgres"))
+                NpgsqlDataReader reader = db.requete("SELECT * FROM users WHERE email = '" + identifiant.Text + "' AND motdepasse = '" + motDePasse.Text + "'");
+                int result = reader.Read() ? 1 : 0;
+                if (result == 1)
                 {
-                    conn.Open();
-                    using (NpgsqlCommand cmd = new NpgsqlCommand())
+                    int role = reader.GetOrdinal("roles");
+                    int roleValue = reader.GetInt16(role);
+                    string userName = reader.GetString(reader.GetOrdinal("name"));
+                    User ConnectUser = new User(userName); // on crée un user avec le nom de l'user connecté
+                    textConnexion.Text = "Connexion réussie";
+                    connexion.Enabled = true;
+                    connexion.Text = "Connexion";
+                    if (roleValue == 1 || roleValue == 3) // admin = 1 , user = 2 , gestionnaire = 3
                     {
-                        cmd.Connection = conn;
-                        cmd.CommandType = CommandType.Text;
-                        cmd.CommandText = "SELECT * FROM utilisateurs WHERE email = @identifiant AND motdepasse = @motDePasse";
-
-                        cmd.Parameters.AddWithValue("@identifiant", identifiant.Text);
-                        cmd.Parameters.AddWithValue("@motDePasse", motDePasse.Text);
-
-                        using (NpgsqlDataReader reader = cmd.ExecuteReader())
-                        {
-                            int result = reader.Read() ? 1 : 0;
-
-                            if (result == 1)
-                            {
-                                int role = reader.GetOrdinal("role");
-                                int roleValue = reader.GetInt16(role);
-                                textConnexion.Text = "Connexion réussie";
-                                if (roleValue == 1 || roleValue == 3)
-                                {
-                                    this.Hide();
-                                    MainPage mainPage = new MainPage();
-                                    mainPage.Show();
-                                }
-                                else
-                                {
-                                    textConnexion.Text = "Vous n'avez pas accès à cette page";
-                                }
-                            }
-                            else
-                            {
-                                textConnexion.Text = "Identifiant ou mot de passe incorrect";
-                            }
-                        }
+                        this.Hide();
+                        MainPage mainPage = new MainPage(ConnectUser); // on envoie l'user connecté à MainPage
+                        mainPage.Show();
+                        db.closeConn();
                     }
+                    else
+                    {
+                        textConnexion.Text = "Vous n'avez pas accèes à cette page";
+                        connexion.Enabled = true;
+                        connexion.Text = "Connexion";
+                    }// champs correct mais pas admin
                 }
-                ResetConnexionButton();
+                else
+                {
+                    textConnexion.Text = "Identifiant ou mot de passe incorrect";
+                    connexion.Enabled = true;
+                    connexion.Text = "Connexion";
+                }// pas d'user dans la base de donnée
+                reader.Close();
             }
         }
+        
+        
         private void ResetConnexionButton()
         {
             connexion.Enabled = true;
@@ -99,6 +84,11 @@ namespace negosud
         }
 
         private void textConnexion_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }

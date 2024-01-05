@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.connexion = new System.Windows.Forms.Button();
             this.quitter = new System.Windows.Forms.Button();
             this.identifiant = new System.Windows.Forms.TextBox();
@@ -40,9 +41,9 @@
             // 
             // connexion
             // 
-            this.connexion.BackColor = System.Drawing.Color.Silver;
-            this.connexion.FlatAppearance.BorderColor = System.Drawing.Color.Gray;
-            this.connexion.FlatAppearance.BorderSize = 0;
+            this.connexion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
+            this.connexion.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this.connexion.FlatAppearance.BorderSize = 3;
             this.connexion.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.connexion.Location = new System.Drawing.Point(197, 421);
             this.connexion.Name = "connexion";
@@ -54,7 +55,7 @@
             // 
             // quitter
             // 
-            this.quitter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.quitter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             this.quitter.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.quitter.Location = new System.Drawing.Point(197, 518);
             this.quitter.Name = "quitter";
@@ -66,27 +67,29 @@
             // 
             // identifiant
             // 
-            this.identifiant.BackColor = System.Drawing.Color.Silver;
-            this.identifiant.Location = new System.Drawing.Point(197, 214);
+            this.identifiant.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.identifiant.Location = new System.Drawing.Point(192, 214);
             this.identifiant.Name = "identifiant";
-            this.identifiant.Size = new System.Drawing.Size(349, 23);
+            this.identifiant.Size = new System.Drawing.Size(354, 23);
             this.identifiant.TabIndex = 2;
             // 
             // motDePasse
             // 
-            this.motDePasse.BackColor = System.Drawing.Color.Silver;
-            this.motDePasse.Location = new System.Drawing.Point(197, 310);
+            this.motDePasse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.motDePasse.Location = new System.Drawing.Point(192, 310);
             this.motDePasse.Name = "motDePasse";
             this.motDePasse.PasswordChar = '*';
-            this.motDePasse.Size = new System.Drawing.Size(349, 23);
+            this.motDePasse.Size = new System.Drawing.Size(354, 23);
             this.motDePasse.TabIndex = 3;
             this.motDePasse.TextChanged += new System.EventHandler(this.motDePasse_TextChanged);
             // 
             // labelIdentifiant
             // 
             this.labelIdentifiant.AutoSize = true;
+            this.labelIdentifiant.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.labelIdentifiant.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelIdentifiant.Location = new System.Drawing.Point(193, 189);
+            this.labelIdentifiant.ForeColor = System.Drawing.SystemColors.Desktop;
+            this.labelIdentifiant.Location = new System.Drawing.Point(194, 189);
             this.labelIdentifiant.Name = "labelIdentifiant";
             this.labelIdentifiant.Size = new System.Drawing.Size(112, 22);
             this.labelIdentifiant.TabIndex = 4;
@@ -95,6 +98,7 @@
             // labelMdp
             // 
             this.labelMdp.AutoSize = true;
+            this.labelMdp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.labelMdp.Font = new System.Drawing.Font("MS Reference Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelMdp.Location = new System.Drawing.Point(193, 285);
             this.labelMdp.Name = "labelMdp";
@@ -105,10 +109,11 @@
             // titre
             // 
             this.titre.AutoSize = true;
+            this.titre.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.titre.Font = new System.Drawing.Font("MS Reference Sans Serif", 19.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.titre.Location = new System.Drawing.Point(190, 42);
             this.titre.Name = "titre";
-            this.titre.Size = new System.Drawing.Size(368, 42);
+            this.titre.Size = new System.Drawing.Size(361, 40);
             this.titre.TabIndex = 6;
             this.titre.Text = "Page Administateur";
             this.titre.Click += new System.EventHandler(this.titre_Click);
@@ -128,6 +133,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.BackgroundImage = global::negosud.Properties.Resources.bouchonAccueil;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(755, 630);
             this.Controls.Add(this.textConnexion);
             this.Controls.Add(this.titre);
@@ -138,9 +145,11 @@
             this.Controls.Add(this.quitter);
             this.Controls.Add(this.connexion);
             this.Font = new System.Drawing.Font("MS Reference Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Connexion";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
