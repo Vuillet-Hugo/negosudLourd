@@ -46,6 +46,40 @@ namespace negosud
             return reader;
         }
 
+        public void CreateData(string requete)
+        {
+            DbConnexion db = new DbConnexion();
+            NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = Conn;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = requete;
+            cmd.ExecuteNonQuery();
+            db.closeConn();
+        }
+
+        public int CheckDataCount( string requete)
+        {
+            NpgsqlCommand cmd = new NpgsqlCommand();
+            cmd.Connection = Conn;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = requete;
+            try
+            {
+                object count = cmd.ExecuteScalar();
+                if (count != null && count != DBNull.Value)
+                {
+                    return Convert.ToInt32(count);
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("bah toujours des soucis on est habitué");
+            }
+            
+            
+            return 0;
+
+        }
 
     }
 }

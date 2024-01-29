@@ -36,13 +36,13 @@ namespace negosud
             }
             else
             {
-                NpgsqlDataReader reader = db.requete("SELECT * FROM users WHERE email = '" + identifiant.Text + "' AND motdepasse = '" + motDePasse.Text + "'");
+                NpgsqlDataReader reader = db.requete("SELECT * FROM utilisateur WHERE email = '" + identifiant.Text + "' AND motdepasse = '" + motDePasse.Text + "'");
                 int result = reader.Read() ? 1 : 0;
                 if (result == 1)
                 {
-                    int role = reader.GetOrdinal("roles");
+                    int role = reader.GetOrdinal("role");
                     int roleValue = reader.GetInt16(role);
-                    string userName = reader.GetString(reader.GetOrdinal("name"));
+                    string userName = reader.GetString(reader.GetOrdinal("nom"));
                     User ConnectUser = new User(userName); // on crée un user avec le nom de l'user connecté
                     textConnexion.Text = "Connexion réussie";
                     connexion.Enabled = true;
@@ -50,8 +50,8 @@ namespace negosud
                     if (roleValue == 1 || roleValue == 3) // admin = 1 , user = 2 , gestionnaire = 3
                     {
                         this.Hide();
-                        MainPage mainPage = new MainPage(ConnectUser); // on envoie l'user connecté à MainPage
-                        mainPage.Show();
+                       DashBoard dashBoard = new DashBoard(ConnectUser); // on envoie l'user connecté à MainPage
+                        dashBoard.Show();
                         db.closeConn();
                     }
                     else
